@@ -3,7 +3,7 @@ pipeline {
     stages {
         stage('build') {
             when {
-                branch 'develop'
+                branch 'master'
             }
             steps {
                 sh './mvnw -Pprod clean package -DskipTests'
