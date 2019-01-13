@@ -1,0 +1,48 @@
+#!/bin/bash
+set -x
+
+###install essential packages
+
+install_essential(){
+
+sudo apt-get update
+sudo apt-get install git software-properties-common build-essential apt-transport-https \
+wget curl zip unzip bzip2 rar unrar openssh-client \
+htop facter ohai net-tools lsof htop tcpdump screen \
+automake autoconf maven gradle ant -y
+
+}
+
+###install java
+
+install_java() {
+
+sudo add-apt-repository ppa:webupd8team/java -y
+sudo apt update -y
+sudo apt install oracle-java8-installer -y
+export JAVA_HOME=/usr/lib/jvm/java-8-oracle/jre
+java -version
+
+}
+
+###installing nodejs and yarn
+
+install_node_yarn() {
+
+curl -sL https://deb.nodesource.com/setup_10.x -o nodesource_setup.sh
+sudo bash nodesource_setup.sh
+sudo apt-get install nodejs -y
+rm nodesource_setup.sh
+
+curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+sudo apt-get update
+sudo apt-get install yarn -y
+
+}
+
+###installing progam
+
+install_essential
+install_java
+install_node_yarn
